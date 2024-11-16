@@ -6,13 +6,17 @@ class WeatherModel {
   double maxTemp;
   double minTemp;
   String weatherStateName;
+  String iconPath;
 
   WeatherModel(
       {required this.date,
       required this.temp,
       required this.maxTemp,
       required this.minTemp,
-      required this.weatherStateName});
+      required this.weatherStateName,
+      required this.iconPath
+
+      });
 
   factory WeatherModel.fromJson(dynamic data) {
     var jsonData = data['forecast']['forecastday'][0]['day'];
@@ -22,7 +26,9 @@ class WeatherModel {
         temp: jsonData['avgtemp_c'],
         maxTemp: jsonData['maxtemp_c'],
         minTemp: jsonData['mintemp_c'],
-        weatherStateName: jsonData['condition']['text']);
+        weatherStateName: jsonData['condition']['text'],
+        iconPath: jsonData['condition']['icon']
+    );
   }
 
   @override
@@ -39,7 +45,7 @@ class WeatherModel {
       return 'assets/images/snow.png';
     } else if (weatherStateName == 'Freezing fog' || weatherStateName == 'Fog' ||  weatherStateName == 'Heavy Cloud' || weatherStateName == 'Mist' || weatherStateName == 'Fog') {
       return 'assets/images/cloudy.png';
-    } else if (weatherStateName == 'Patchy rain possible' ||
+    } else if (weatherStateName == 'Patchy rain possible' || weatherStateName == 'Patchy rain nearby' || weatherStateName == 'Moderate rain' ||
         weatherStateName == 'Heavy Rain' ||
         weatherStateName == 'Showers	') {
       return 'assets/images/rainy.png';
@@ -59,7 +65,7 @@ MaterialColor getThemeColor() {
     } else if (weatherStateName == 'Freezing fog' || weatherStateName == 'Fog' ||  weatherStateName == 'Heavy Cloud' || weatherStateName == 'Mist' || weatherStateName == 'Fog') {
       return Colors.blueGrey;
     } else if (weatherStateName == 'Patchy rain possible' ||
-        weatherStateName == 'Heavy Rain' ||
+        weatherStateName == 'Heavy Rain' || weatherStateName == 'Patchy rain nearby' || weatherStateName == 'Moderate rain' ||
         weatherStateName == 'Showers	') {
       return Colors.blue;
     } else if (weatherStateName == 'Thundery outbreaks possible' || weatherStateName == 'Moderate or heavy snow with thunder' || weatherStateName == 'Patchy light snow with thunder'|| weatherStateName == 'Moderate or heavy rain with thunder' || weatherStateName == 'Patchy light rain with thunder' ) {

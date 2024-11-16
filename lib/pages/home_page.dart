@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/core/constant/app_color.dart';
 import 'package:weather_app/core/constant/image_assets.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/pages/search_page.dart';
@@ -25,21 +26,12 @@ class _HomePageState extends State<HomePage> {
     weatherData = Provider.of<WeatherProvider>(context).weatherData;
 
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: AppColor.trans,
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //         return SearchPage(
-        //           updateUi: updateUi,
-        //         );
-        //       }));
-        //     },
-        //     icon: const Icon(Icons.search),
-        //   ),
-        // ],
-        title: const Text(AppStrings.weatherApp),
+        title: const Text(AppStrings.weatherApp , style:TextStyle(fontWeight: FontWeight.bold ,color: Colors.black54,fontSize: 30),),
       ),
       body: Provider.of<WeatherProvider>(context).weatherData == null
           ? Container(
@@ -115,7 +107,10 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(weatherData!.getImage()),
+                    //  Image.asset(weatherData!.getImage()),
+                      SizedBox.square(
+                          dimension: 130,
+                          child: Image.network("https:${weatherData!.iconPath.toString()}",fit: BoxFit.cover,),),
                       Text(
                         weatherData!.temp.toInt().toString(),
                         style: const TextStyle(
