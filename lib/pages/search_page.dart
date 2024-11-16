@@ -122,7 +122,7 @@ getWeatherData(
     showCustomDialog(
       context,
       'no matching city',
-      'enter wright city name please',
+      'enter correct city name please',
     );
   }
 }
